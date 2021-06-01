@@ -21,6 +21,7 @@ namespace nodepad
 
         public TextBox getMainTextBox()
         {
+
             return mainTextBox;
         }
 
