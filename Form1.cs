@@ -7,24 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Printing;
 
 namespace nodepad
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
         }
 
+        public TextBox getMainTextBox()
+        {
+            return mainTextBox;
+        }
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            mainTextBox.Cut();
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -54,7 +61,18 @@ namespace nodepad
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            PrintDocument document = new PrintDocument();
+            PrintDialog dialog = new PrintDialog();
+            dialog.Document = document;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                document.Print();
+            }
+        }
 
+        private void PrintDocumentOnPrintPage(object sender, PrintPageEventArgs e)
+        {
+            e.Graphics.DrawString(this.mainTextBox.Text, this.mainTextBox.Font, Brushes.Black, 10, 25);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -64,32 +82,36 @@ namespace nodepad
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            mainTextBox.Undo();
         }
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            mainTextBox.SelectionStart = 0;
+            mainTextBox.SelectionLength = 5;
+            mainTextBox.Copy();
         }
 
         private void pasteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            mainTextBox.Paste();
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            mainTextBox.SelectedText = "";
         }
 
         private void searchWithBingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            System.Diagnostics.Process.Start("https://www.bing.com/");
         }
 
         private void findToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FindDialog findinText = new FindDialog(this);
+            findinText.Owner = this;
+            findinText.Show();
         }
 
         private void findNextToolStripMenuItem_Click(object sender, EventArgs e)
@@ -114,17 +136,18 @@ namespace nodepad
 
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            mainTextBox.SelectAll();
         }
 
         private void timeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            DateTime now = DateTime.Now;
+            mainTextBox.Text += now;
         }
 
         private void wordWrapToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            mainTextBox.WordWrap = !mainTextBox.WordWrap;
         }
 
         private void fontToolStripMenuItem_Click(object sender, EventArgs e)
@@ -168,6 +191,16 @@ namespace nodepad
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
