@@ -29,11 +29,6 @@ namespace nodepad
             return mainTextBox;
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainTextBox.Cut();
@@ -41,7 +36,7 @@ namespace nodepad
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+         
         }
 
         private void newWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -112,7 +107,10 @@ namespace nodepad
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("Exit Nodepad -- ?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
         }
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -190,19 +188,9 @@ namespace nodepad
 
         }
 
-        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void restoreDefaulltToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            //TODO
         }
 
         private void statusBarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -230,14 +218,9 @@ namespace nodepad
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void Form1_Load_1(object sender, EventArgs e)
         {
            
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
