@@ -8,11 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Printing;
+using System.IO;
+
 
 namespace nodepad
 {
     public partial class Form1 : Form
     {
+
+        private string filePath;
 
         public Form1()
         {
@@ -52,7 +56,37 @@ namespace nodepad
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!String.IsNullOrEmpty(filePath))
+            {
+                writeIntoFile(filePath);
+                return;
+            }
 
+            Stream myStream;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Title = "Save text Files";
+            saveFileDialog1.CheckPathExists = true;
+            saveFileDialog1.DefaultExt = "txt";
+            saveFileDialog1.Filter = "Text files (*.txt)|*.txt";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if ((myStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    filePath = saveFileDialog1.FileName;
+                    myStream.Close();
+                    writeIntoFile(filePath);
+                }
+
+            }
+
+        }
+
+
+        private void writeIntoFile(string filePath)
+        {
+            File.WriteAllText(filePath, mainTextBox.Text);
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
